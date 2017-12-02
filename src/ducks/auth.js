@@ -36,14 +36,18 @@ export default function reducer(state = {
 };
 
 export const signIn = function * (email, password) {
-    const userData = {
+    const authenticationData  = {
         Username : email,
         Password : password
     };
-    const authenticationDetails = new AWSCognito.CognitoIdentityServiceProvider.AuthenticationDetails(userData);
+    const authenticationDetails = new AWSCognito.CognitoIdentityServiceProvider.AuthenticationDetails(authenticationData);
     const userPool = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserPool(poolData);
+    const userData = {
+        Username: email,
+        Pool: poolData
+      }
     const cognitoUser = new CognitoUser(userData);
-    const user = yield new Promise((resolve, reject) => {
+    const requestPropmise = new Promise((resolve, reject) => {
         cognitoUser.authenticateUser(authenticationDetails, {
             onSuccess: function(result) {
                 resolve(result)
@@ -53,4 +57,14 @@ export const signIn = function * (email, password) {
             }
         })
     });
+    try {
+        const response = yield call(requestPropmise);
+        yield put({ type: SIGN_IN_SUCCESS, payload: response});
+        yield put(push('/coin'));
+    } catch (e){
+        yield put({
+            type: actions.SIGN_IN_ERROR,
+            error: e
+        });
+    }
 }
