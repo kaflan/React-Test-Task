@@ -3,16 +3,14 @@ import {connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { Form, Button} from 'antd';
 import InputField from  './common/Input';
-import {signInSaga} from '../ducks/auth';
+import {signIn} from '../ducks/auth';
 
 class Auth extends Component {
     submit({username, password}) {
-        console.log(username, password);
+        this.props.signIn(username, password);
     };
     render () {
         const {handleSubmit} = this.props;
-        // console.log(this.props.signInSaga);
-
         return(
             <div className="container">
                 <div className="row">
@@ -43,7 +41,7 @@ class Auth extends Component {
         )
     }
 }
-Auth = connect(null, {signInSaga})(Auth);
+Auth = connect(null, {signIn})(Auth);
 export default reduxForm({
     form: 'auth'
 })(Auth);
