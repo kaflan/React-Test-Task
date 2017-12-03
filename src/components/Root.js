@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
-import {Route} from 'react-router-dom';
+import {Route, Switch} from 'react-router-dom';
 import Auth from './autch';
+import Coin from './coin';
 
 export default class Root extends Component {
     render () {
         return(
             <div>
-                 <Route path="/" exxact component={Auth}/>
-                {/*<Route path="/auth" component={AuthPage}/>*/}
-            </div>    
+                <Switch>
+                    <Route path="/" exact component={Auth}/>
+                    <Route path="/coin" component={Coin}/>
+                </Switch>
+            </div>
         )
     }
 }

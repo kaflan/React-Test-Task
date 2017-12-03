@@ -69,8 +69,8 @@ export const signInSaga = function* () {
         const {username, password} = action.payload;
         try {
             const response = yield call(Auth, username, password);
-            console.log('success');
             yield put({type: SIGN_IN_SUCCESS, payload: response});
+            console.log('response', response);
             yield put(push('/coin'));
         } catch (e) {
             if(e.message === 'User does not exist.') {
