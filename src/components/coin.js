@@ -4,7 +4,7 @@ import {connect } from 'react-redux';
 class Coin extends Component {
 
     render () {
-        const {handleSubmit} = this.props;
+        // const {handleSubmit} = this.props;
         return(
             <div className="container">
                 <div className="row">
