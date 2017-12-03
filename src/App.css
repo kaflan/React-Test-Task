@@ -26,4 +26,8 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
-@import '~antd/dist/antd.css';
+@import "~antd/dist/antd.css";
+@import "~bootstrap/dist/css/bootstrap-grid.min.css";
+.marginTop{
+  margin-top: 9px;
+}
