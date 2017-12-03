@@ -73,7 +73,13 @@ export const signInSaga = function* () {
             yield put({type: SIGN_IN_SUCCESS, payload: response});
             yield put(push('/coin'));
         } catch (e) {
-            yield put(stopSubmit('auth', { username: 'User not exist',_error: 'login fail' }));
+            if(e.message === 'User does not exist.') {
+                yield put(stopSubmit('auth', { username: 'User not exist',_error: e.message }));
+            }
+            if(e.message === 'Incorrect username or password.') {
+                yield put(stopSubmit('auth', { username: e.message,_error: e.message, password: e.message }));
+            }
+
         }
     }
 };
