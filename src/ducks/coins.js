@@ -45,7 +45,9 @@ export const coinSaga = function* () {
     }
 };
 export const fetchCoinsCurrency = () => fetch('https://mobile.goodx.network/purses/currency');
-
+export function getCoin() {
+    return {type: REQUEST};
+};
 
 export const saga = function* () {
     yield all([
