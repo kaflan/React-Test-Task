@@ -7,57 +7,40 @@ import TableCoinInfo from "./common/Table";
 class Coin extends Component {
     state = {
         visible: false,
-        modalData: null
+        modalData: {
+            "id": 3,
+            "code": "ETH",
+            "name": "Ethereum",
+            "is_crypto": true
+        },
     };
 
     componentDidMount() {
-
+        this.props.getCoin();
     }
-    onRowClick (record, index, event) {
-        console.log(record, index, event);
+    onRowClick (record) {
         this.showModal();
+        this.setState({
+            modalData: record
+        });
     }
     showModal = () => {
         this.setState({
             visible: true,
         });
     };
-    handleOk = (e) => {
-        console.log(e);
+    handleOk = () => {
         this.setState({
             visible: false,
         });
     };
-    handleCancel = (e) => {
-        console.log(e);
+    handleCancel = () => {
         this.setState({
             visible: false,
         });
     };
     render() {
-        const data = [{
-            "id": 3,
-            "code": "ETH",
-            "name": "Ethereum",
-            "is_crypto": true
-        }, {
-            "id": 2,
-            "code": "BTC",
-            "name": "Bitcoin",
-            "is_crypto": true
-        }, {
-            "id": 4,
-            "code": "USD",
-            "name": "US Dollar",
-            "is_crypto": false
-        }, {
-            "id": 1,
-            "code": "EUR",
-            "name": "EURO",
-            "is_crypto": false
-        }];
         const {currency} = this.props;
-        console.log(currency);
         return (
             <div className="container">
                 <div className="row">
@@ -65,13 +48,16 @@ class Coin extends Component {
                         marginTop: '30%',
                     }}>
                         <div>Coin</div>
-                        <TableCoinInfo data={data} onRowClick={(record) =>this.onRowClick(record)}/>
+                        <TableCoinInfo data={currency} onRowClick={(record) =>this.onRowClick(record)}/>
                         <ModalContext
                             visible={this.state.visible}
                             onOk={this.handleOk}
                             onCancel={this.handleCancel}
                         >
-
+                            <p>ID: {this.state.modalData.id}</p>
+                            <p>code: {this.state.modalData.code}</p>
+                            <p>name: {this.state.modalData.name}</p>
+                            <p>is_crypto: {this.state.modalData.is_crypto? 'true': 'false'}</p>
                         </ModalContext>
                     </div>
                 </div>

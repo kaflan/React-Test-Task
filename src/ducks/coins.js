@@ -35,7 +35,8 @@ export const coinSaga = function* () {
         const action = yield take(REQUEST);
         try {
             const response = yield call(fetchCoinsCurrency, action);
-            yield put({type: SUCCESS, payload: response});
+            const {payload} = yield call(() => response.json());
+            yield put({type: SUCCESS, payload });
         } catch (e) {
             yield put({
                 type: ERROR,

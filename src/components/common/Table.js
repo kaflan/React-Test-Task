@@ -16,8 +16,7 @@ const columns = [{
 }, {
     title: 'Action',
     key: 'action',
-    render: (text, record) => {
-        console.log(text, record, this.props)
+    render: () => {
         return (
       <Button type="primary">Open Info</Button>
     )},
